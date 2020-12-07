@@ -17,16 +17,16 @@ def get_all_codes(keep_dots):
     else:
         return all_codes_no_dots.copy()
 
-def is_valid_element(code):
+def is_valid_item(code):
     code = _remove_dot(code)
     return code in all_codes_no_dots
 
 def is_chapter_or_block(code):
     code = _remove_dot(code)
-    return (code in chapter_list) or (code in all_codes_no_dots) and len(code)==7
+    return (code in chapter_list) or len(code)==7 and (code in all_codes_no_dots) 
 
 def is_valid_code(code):
-    return is_valid_element(code) and not is_chapter_or_block(code)
+    return is_valid_item(code) and not is_chapter_or_block(code)
 
 def get_index(code):
     c = _remove_dot(code)
@@ -89,8 +89,8 @@ def _get_chapter(code):
     elif l=="U":
         return "XXII"
 
-def get_children(code):
-    if not is_valid_element(code):
+def get_descendants(code):
+    if not is_valid_item(code):
         raise ValueError(code+" is not a valid ICD-10 code.")
     code = _remove_dot(code)
     if code in chapter_list:#if it's a chapter
@@ -98,10 +98,10 @@ def get_children(code):
     elif len(code)==7:#if it's a block
         #we consider first the three blocks whose codes don't all begin with the same letter
         if code=="V01-X59":
-            return ["V01-V99", "W00-X59"] + get_children("V01-V99") + get_children("W00-X59")
+            return ["V01-V99", "W00-X59"] + get_descendants("V01-V99") + get_descendants("W00-X59")
         elif code=="W00-X59":
             t = ["W00-W19", "W20-W49", "W50-W64", "W65-W74", "W75-W84", "W85-W99", "X00-X09", "X10-X19", "X20-X29", "X30-X39", "X40-X49", "X50-X57", "X58-X59"]
-            return t + [c for l in [get_children(x) for x in t] for c in l]
+            return t + [c for l in [get_descendants(x) for x in t] for c in l]
         elif code=="X85-Y09":#this is simpler since all its children are codes
             return [c for c in all_codes_no_dots if not is_chapter_or_block(c) and ((c[0]=="X" and int(code[1:3])>=85) or (c[0]=="Y" and int(code[1:3])<=9))]
         else:
@@ -113,8 +113,8 @@ def get_children(code):
     else:#if its a subcategory
         return []#it has not children
 
-def get_parents(code):
-    if not is_valid_element(code):
+def get_ancestors(code):
+    if not is_valid_item(code):
         raise ValueError(code+" is not a valid ICD-10 code.")
     code = _remove_dot(code)
     if code in chapter_list:#if its a chapter
@@ -122,28 +122,28 @@ def get_parents(code):
     elif is_chapter_or_block(code):#if its a block
         i = get_index(code)
         if code=="V01-V99" or code=="W00-X59":#we start with the special cases
-            return ["V01-X59"] + get_parents("V01-X59")
+            return ["V01-X59"] + get_ancestors("V01-X59")
         elif code=="W00-W19" or code=="W20-W49" or code=="W50-W64" or code=="W65-W74" or code=="W75-W84" or code=="W85-W99" or code=="X00-X09" or code=="X10-X19" or code=="X20-X29" or code=="X30-X39" or code=="X40-X49" or code=="X50-X57" or code=="X58-X59":
-            return ["W00-X59"] + get_parents("W00-X59")
+            return ["W00-X59"] + get_ancestors("W00-X59")
         else:
             for h in range(1,i+1):
                 k=i-h
-                if(len(all_codes_no_dots[k])==7 and code[0]==all_codes_no_dots[k][0] and code in get_children(all_codes_no_dots[k])):
-                    return [all_codes_no_dots[k]] + get_parents(all_codes_no_dots[k])
+                if(len(all_codes_no_dots[k])==7 and code[0]==all_codes_no_dots[k][0] and code in get_descendants(all_codes_no_dots[k])):
+                    return [all_codes_no_dots[k]] + get_ancestors(all_codes_no_dots[k])
             return [_get_chapter(code)]
     elif len(code)==3:#if its a category
         i = get_index(code)
         for h in range(1,i+1):
             k=i-h
             if len(all_codes_no_dots[k])==7:#the first category we meet going to the left will contain our code
-                return [all_codes_no_dots[k]] + get_parents(all_codes_no_dots[k])
+                return [all_codes_no_dots[k]] + get_ancestors(all_codes_no_dots[k])
     else:#if its a subcategory
-        return [code[:3]] + get_parents(code[:3])
+        return [code[:3]] + get_ancestors(code[:3])
 
-def is_parent(a,b):
-    if not is_valid_element(a):
+def is_ancestor(a,b):
+    if not is_valid_item(a):
         raise ValueError(a+" is not a valid ICD-10 code.")
-    return a in get_parents(b)
+    return a in get_ancestors(b)
 
-def is_children(a,b):
-    return is_parent(b,a)
+def is_descendant(a,b):
+    return is_ancestor(b,a)
