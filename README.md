@@ -3,7 +3,7 @@ A simple python library for ICD-10 codes
 
 ## Index
 * [Introduction](#introduction)
-* [What a code is and how it looks](#what-a-code-is-and-how-it-looks)
+* [What a code is and how it looks like](#what-a-code-is-and-how-it-looks-like)
 * [Performance](#performance)
 * [Documentation](#documentation)
   * [is_valid_item(code)](#is_valid_itemcode)
@@ -19,20 +19,22 @@ A simple python library for ICD-10 codes
 * [Conclusion](#conclusion)
 
 ## Introduction
-The scope of this library is to provide a simple instrument for dealing with ICD-10 codes in your Python projects. It provides ways to check wether a code exists, to find its ancestors and descendants, to see its description and much more.  
-The codes and their descriptions were taken from [this page](https://icd.who.int/browse10/2019/en#/E15-E16) in WHO's website and are referred to the **2019 version of ICD-10**.
+The scope of this library is to provide a simple instrument for dealing with ICD-10 codes in your Python projects. It provides ways to check whether a code exists, to find its ancestors and descendants, to see its description and much more.  
+The codes and their descriptions were taken from [this page](https://icd.who.int/browse10/2019/en#/E15-E16) in the WHO's website and are referred to the **2019 version of ICD-10**.
 
-## What a code is and how it looks
-We need to start by clarifying what a code is for us. The [ICD-10 instruction manual](https://icd.who.int/browse10/Content/statichtml/ICD10Volume2_en_2019.pdf) makes a distinction bewteen **chapters**, **block of categories**, **three-character categories** and **four-character subcategories** (which from now on we'll refer as chapters, blocks, categories and subcategories), with a few additional five-character subcategories: we will consider all these items as codes.  
-That said, this library includes ways to make distintions bewteen the first two kinds of codes (chapters and blocks) and the other two kinds of codes (categories and subcategories); while making this distinction we may consider only categories and subcategories to be "codes", while we may use "items" as a more general term. However, in every other circumstance the definition of "code" is the more inclusive one.
+You can find the all the codes and their descriptions in plain text in the "data" folder.
 
-Generally speaking, each code for a subcategory can be written in two different ways: with a dot (for example "I13.1") and without the dot (for example "I131"). The functions in this library can receive as input codes in both these formats. When a function returns one or more codes, they will always be in the format without the dot.
+## What a code is and how it looks like
+We need to start by clarifying what a code is for us. The [ICD-10 instruction manual](https://icd.who.int/browse10/Content/statichtml/ICD10Volume2_en_2019.pdf) makes a distinction between **chapters**, **block of categories**, **three-character categories** and **four-character subcategories** (which from now on we'll refer to as chapters, blocks, categories and subcategories), with a few additional five-character subcategories: we will consider all these items as codes.  
+That said, this library includes ways to make distinctions between the first two kinds of codes (chapters and blocks) and the other two kinds of codes (categories and subcategories); while making this distinction we may consider only categories and subcategories to be "codes", while we may use "items" as a more general term. However, in every other circumstance the definition of "code" is the more inclusive one.
+
+Generally speaking, the codes of subcategories can be written in two different ways: with a dot (for example "I13.1") and without the dot (for example "I131"). The functions in this library can receive as input codes in both these formats. The codes returned by the functions will always be in the format without the dot.
 
 ## Performance
 While several steps were taken in order to improve the performance of this library, speed was not the main focus while it was being written. This means that many functions are slower than they could potentially be. Please let me know if the performance makes this library unsuitable for your project.
 
 ## Documentation
-Here I will list all the functions provided by this library and describe how they work. If you are interested in a more interactive introduction to simple_icd_10, please take a look at the Jupyter Notebook "Showcase notebook.ipynb"; there you can also find more examples.
+Here I will list all the functions provided by this library and describe how to use them. If you are interested in a more interactive introduction to simple_icd_10, please take a look at the Jupyter Notebook "Showcase notebook.ipynb"; there you can also find more examples.
 
 Here we suppose we have imported the library as follows:
 ```python
@@ -116,9 +118,13 @@ icd.get_all_codes(True)[7159]
 ```
 ## Conclusion
 This is everything you needed to know before using the simple_icd_10 library - please contact me if you feel I missed something or there's some passage that you think should be explained better or more. Also contact me if you find any errors in the library or in the documentation.  
-I hope this library will save you some time; it definetely would have done it for me if I hadn't had to write it!
+I hope this library will save you some time; it definitely would have done it for me if I hadn't had to write it!
 
 If you are feeling particularly thankful and/or generous and feel like leaving me a tip, **don't!**.  
 Donate instead to *Médecins Sans Frontières* to support their efforts to provides medical care to millions of people caught in crises around the world. Click on the logo below to open their "donate" page.
 
 [![MSF Logo](https://www.msf.org/themes/custom/msf_theme/src/kss/components/icons/assets/logo-white-en.svg)](https://www.msf.org/donate)
+
+If you end up making a donation because of this library, feel free to drop me an email: I'll be happy to read it!
+
+*Stefano Travasci*
