@@ -5,7 +5,7 @@ all_descriptions = ["Certain infectious and parasitic diseases", "Intestinal inf
 chapter_list = ["I","II","III","IV","V","VI","VII","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII"]
 
 def _remove_dot(code):
-    if len(code)==5 and code[3]==".":
+    if (len(code)==5 or len(code)==6) and code[3]==".":
         code=code[:3]+code[4:]
     return code
 
@@ -109,9 +109,14 @@ def get_descendants(code):
             codes = [c for c in all_codes_no_dots if not is_chapter_or_block(c) and c[0]==code[0] and int(c[1:3])>=int(code[1:3]) and int(c[1:3])<=int(code[-2:])]
             return blocks + codes
     elif len(code)==3:#if its a category
-        return [c for c in all_codes_no_dots if c[:3]==code and not c==code]
+        return [c for c in all_codes_no_dots if c[:3]==code and not c==code and len(c)<7]
     else:#if its a subcategory
-        return []#it has not children
+        if code=="B180":#two special cases
+            return ["B1800", "B1809"]
+        elif code=="B181":
+            return ["B1810", "B1819"]
+        else:
+            return []#it has not children
 
 def get_ancestors(code):
     if not is_valid_item(code):
@@ -138,7 +143,7 @@ def get_ancestors(code):
             if len(all_codes_no_dots[k])==7:#the first category we meet going to the left will contain our code
                 return [all_codes_no_dots[k]] + get_ancestors(all_codes_no_dots[k])
     else:#if its a subcategory
-        return [code[:3]] + get_ancestors(code[:3])
+        return [code[:-1]] + get_ancestors(code[:-1])
 
 def is_ancestor(a,b):
     if not is_valid_item(a):
