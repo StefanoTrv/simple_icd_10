@@ -3,6 +3,7 @@ A simple python library for ICD-10 codes
 
 ## Index
 * [Introduction](#introduction)
+* [Setup](#setup)
 * [What a code is and how it looks like](#what-a-code-is-and-how-it-looks-like)
 * [Performance](#performance)
 * [Documentation](#documentation)
@@ -23,6 +24,12 @@ The scope of this library is to provide a simple instrument for dealing with ICD
 The codes and their descriptions were taken from [this page](https://icd.who.int/browse10/2019/en#/E15-E16) in the WHO's website and are referred to the **2019 version of ICD-10**.
 
 You can find the all the codes and their descriptions in plain text in the "data" folder.
+
+## Setup
+You can either use the "simple_icd_10.py" file that contains all the source code, or install the package with pip, using this command:
+```bash
+pip install simple-icd-10
+```
 
 ## What a code is and how it looks like
 We need to start by clarifying what a code is for us. The [ICD-10 instruction manual](https://icd.who.int/browse10/Content/statichtml/ICD10Volume2_en_2019.pdf) makes a distinction between **chapters**, **block of categories**, **three-character categories** and **four-character subcategories** (which from now on we'll refer to as chapters, blocks, categories and subcategories), with a few additional five-character subcategories: we will consider all these items as codes.  
