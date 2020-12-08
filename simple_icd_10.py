@@ -5,6 +5,8 @@ all_descriptions = ["Certain infectious and parasitic diseases", "Intestinal inf
 chapter_list = ["I","II","III","IV","V","VI","VII","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII"]
 
 def _remove_dot(code):
+    if code=="VII.I" or code=="XII.I" or code=="XVI.I" or code=="XVI.II" or code=="XXI.I":#special cases, to avoid turning invalid codes into valid ones
+        return code
     if (len(code)==5 or len(code)==6) and code[3]==".":
         code=code[:3]+code[4:]
     return code
