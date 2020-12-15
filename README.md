@@ -15,13 +15,14 @@ A simple python library for ICD-10 codes
   * [get_ancestors(code)](#get_ancestorscode)
   * [is_descendant(a,b)](#is_descendantab)
   * [is_ancestor(a,b)](#is_ancestorab)
+  * [get_nearest_common_ancestor(a,b)](#get_nearest_common_ancestorab)
   * [get_all_codes(keep_dots)](#get_all_codeskeep_dots)
   * [get_index(code)](#get_indexcode)
 * [Conclusion](#conclusion)
 
 ## Introduction
 The scope of this library is to provide a simple instrument for dealing with ICD-10 codes in your Python projects. It provides ways to check whether a code exists, to find its ancestors and descendants, to see its description and much more.  
-The codes and their descriptions were taken from [this page](https://icd.who.int/browse10/2019/en#/E15-E16) in the WHO's website and are referred to the **2019 version of ICD-10**.
+The codes and their descriptions were taken from [this page](https://icd.who.int/browse10/2019/en#) in the WHO's website and are referred to the **2019 version of ICD-10**.
 
 You can find the all the codes and their descriptions in plain text in the "data" folder.
 
@@ -106,6 +107,14 @@ icd.is_ancestor("XVIII","R01.0")
 #True
 icd.is_ancestor("K00-K14","M31")
 #False
+```
+### get_nearest_common_ancestor(a,b)
+This function takes two strings as input. If both strings are valid ICD-10 codes, it returns the nearest common ancestor if it exists, an empty string if it doesn't exist. If at least one of the strings is not a valid ICD-10 code, it raises a ValueError.
+```python
+icd.get_nearest_common_ancestor("H28.0","H25.1")
+#"H25-H28"
+icd.is_ancestor("K35","E21.0")
+#""
 ```
 ### get_all_codes(keep_dots)
 This function takes a boolean for input and returns the list of all items in the ICD-10 classification. If the boolean is True the subcategories in the list will have a dot in them, if it's False the subcategories won't have a dot in them.
