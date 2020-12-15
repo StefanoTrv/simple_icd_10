@@ -165,4 +165,4 @@ def get_nearest_common_ancestor(a,b):
     for anc in anc_a:
         if anc in anc_b:
             return anc
-    return []
+    return ""
