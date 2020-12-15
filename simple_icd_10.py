@@ -154,3 +154,15 @@ def is_ancestor(a,b):
 
 def is_descendant(a,b):
     return is_ancestor(b,a)
+
+def get_nearest_common_ancestor(a,b):
+    anc_a = [a] + get_ancestors(a)
+    anc_b = [b] + get_ancestors(b)
+    if len(anc_b) > len(anc_a):
+        temp = anc_a
+        anc_a = anc_b
+        anc_b = temp
+    for anc in anc_a:
+        if anc in anc_b:
+            return anc
+    return []
