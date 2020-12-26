@@ -4,6 +4,12 @@ all_descriptions = ["Certain infectious and parasitic diseases", "Intestinal inf
 
 chapter_list = ["I","II","III","IV","V","VI","VII","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII"]
 
+ancestors_dict = {}
+
+descendants_dict = {}
+
+use_memoization = True
+
 def _remove_dot(code):
     if code=="VII.I" or code=="XII.I" or code=="XVI.I" or code=="XVI.II" or code=="XXI.I":#special cases, to avoid turning invalid codes into valid ones
         return code
@@ -95,6 +101,16 @@ def get_descendants(code):
     if not is_valid_item(code):
         raise ValueError(code+" is not a valid ICD-10 code.")
     code = _remove_dot(code)
+    if use_memoization:
+        if code in descendants_dict:
+            return descendants_dict[code]
+        else:
+            descendants_dict[code] = _get_descendants(code)
+            return descendants_dict[code]
+    else:
+        return _get_descendants(code)
+
+def _get_descendants(code):
     if code in chapter_list:#if it's a chapter
         return [c for c in all_codes_no_dots if _get_chapter(c)==code]
     elif len(code)==7:#if it's a block
@@ -124,6 +140,16 @@ def get_ancestors(code):
     if not is_valid_item(code):
         raise ValueError(code+" is not a valid ICD-10 code.")
     code = _remove_dot(code)
+    if use_memoization:
+        if code in ancestors_dict:
+            return ancestors_dict[code]
+        else:
+            ancestors_dict[code] = _get_ancestors(code)
+            return ancestors_dict[code]
+    else:
+        return _get_ancestors(code)
+
+def _get_ancestors(code):
     if code in chapter_list:#if its a chapter
         return []#it has no parent
     elif is_chapter_or_block(code):#if its a block
@@ -166,3 +192,18 @@ def get_nearest_common_ancestor(a,b):
         if anc in anc_b:
             return anc
     return ""
+
+def reset_memoization():
+    global ancestors_dict
+    ancestors_dict = {}
+    global descendants_dict
+    descendants_dict = {}
+
+def enable_memoization():
+    global use_memoization
+    use_memoization = True
+
+def disable_memoization():
+    global use_memoization
+    reset_memoization()
+    use_memoization = False
