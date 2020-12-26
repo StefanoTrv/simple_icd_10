@@ -5,7 +5,7 @@ A simple python library for ICD-10 codes
 * [Introduction](#introduction)
 * [Setup](#setup)
 * [What a code is and how it looks like](#what-a-code-is-and-how-it-looks-like)
-* [Performance](#performance)
+* [Memoization](#memoization)
 * [Documentation](#documentation)
   * [is_valid_item(code)](#is_valid_itemcode)
   * [is_valid_code(code)](#is_valid_codecode)
@@ -18,6 +18,9 @@ A simple python library for ICD-10 codes
   * [get_nearest_common_ancestor(a,b)](#get_nearest_common_ancestorab)
   * [get_all_codes(keep_dots)](#get_all_codeskeep_dots)
   * [get_index(code)](#get_indexcode)
+  * [disable_memoization()](#disable_memoization)
+  * [enable_memoization()](#enable_memoization)
+  * [reset_memoization()](#reset_memoization)
 * [Conclusion](#conclusion)
 
 ## Introduction
@@ -38,8 +41,8 @@ That said, this library includes ways to make distinctions between the first two
 
 Generally speaking, the codes of subcategories can be written in two different ways: with a dot (for example "I13.1") and without the dot (for example "I131"). The functions in this library can receive as input codes in both these formats. The codes returned by the functions will always be in the format without the dot.
 
-## Performance
-While several steps were taken in order to improve the performance of this library, speed was not the main focus while it was being written. This means that many functions are slower than they could potentially be. Please let me know if the performance makes this library unsuitable for your project.
+## Memoization
+Since version 1.2.0, this library uses [memoization](https://en.wikipedia.org/wiki/Memoization) to improve the speed of several functions. While I suggest you always keep it enabled because of the great performance improvements that it brings, you are provided with functions to disable and re-enable it as you wish.
 
 ## Documentation
 Here I will list all the functions provided by this library and describe how to use them. If you are interested in a more interactive introduction to simple_icd_10, please take a look at the Jupyter Notebook "Showcase notebook.ipynb"; there you can also find more examples.
@@ -131,6 +134,21 @@ icd.get_index("P00")
 #7159
 icd.get_all_codes(True)[7159]
 #"P00"
+```
+### disable_memoization()
+This function disables memoization and deletes the results that memoization has saved so far. If memoization is already disabled, nothing happens.
+```python
+icd.disable_memoization()
+```
+### enable_memoization()
+This function enables memoization. Memoization is enabled by default, so you only need this function if it was previously disabled. If memoization is already enabled, nothing happens.
+```python
+icd.enable_memoization()
+```
+### reset_memoization()
+This function deletes the results that memoization has saved so far. This function is automatically called by `disable_memoization`.
+```python
+icd.reset_memoization()
 ```
 ## Conclusion
 This is everything you needed to know before using the simple_icd_10 library - please contact me if you feel I missed something or there's some passage that you think should be explained better or more. Also contact me if you find any errors in the library or in the documentation.  
