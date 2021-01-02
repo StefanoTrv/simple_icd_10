@@ -103,10 +103,10 @@ def get_descendants(code):
     code = _remove_dot(code)
     if use_memoization:
         if code in descendants_dict:
-            return descendants_dict[code]
+            return descendants_dict[code].copy()
         else:
             descendants_dict[code] = _get_descendants(code)
-            return descendants_dict[code]
+            return descendants_dict[code].copy()
     else:
         return _get_descendants(code)
 
@@ -142,10 +142,10 @@ def get_ancestors(code):
     code = _remove_dot(code)
     if use_memoization:
         if code in ancestors_dict:
-            return ancestors_dict[code]
+            return ancestors_dict[code].copy()
         else:
             ancestors_dict[code] = _get_ancestors(code)
-            return ancestors_dict[code]
+            return ancestors_dict[code].copy()
     else:
         return _get_ancestors(code)
 
