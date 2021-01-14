@@ -10,7 +10,7 @@ A simple python library for ICD-10 codes
   * [is_valid_item(code)](#is_valid_itemcode)
   * [is_valid_code(code)](#is_valid_codecode)
   * [is_chapter_or_block(code)](#is_chapter_or_blockcode)
-  * [get_descriptions(code)](#get_descriptionscode)
+  * [get_description(code)](#get_descriptioncode)
   * [get_descendants(code)](#get_descendantscode)
   * [get_ancestors(code)](#get_ancestorscode)
   * [is_descendant(a,b)](#is_descendantab)
@@ -75,12 +75,12 @@ icd.is_chapter_or_block("A00-B99")
 icd.is_chapter_or_block("B99")
 #False
 ```
-### get_descriptions(code)
+### get_description(code)
 This function takes a string as input. If the string is a valid ICD-10 code, it returns a string with its short description, otherwise it raises a ValueError.
 ```python
-icd.get_descriptions("XII")
+icd.get_description("XII")
 #"Diseases of the skin and subcutaneous tissue"
-icd.get_descriptions("F00")
+icd.get_description("F00")
 #"Dementia in Alzheimer disease"
 ```
 ### get_descendants(code)
