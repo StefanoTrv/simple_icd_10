@@ -78,9 +78,9 @@ icd.is_chapter_or_block("B99")
 ### get_descriptions(code)
 This function takes a string as input. If the string is a valid ICD-10 code, it returns a string with its short description, otherwise it raises a ValueError.
 ```python
-icd.is_chapter_or_block("XII")
+icd.get_descriptions("XII")
 #"Diseases of the skin and subcutaneous tissue"
-icd.is_chapter_or_block("F00")
+icd.get_descriptions("F00")
 #"Dementia in Alzheimer disease"
 ```
 ### get_descendants(code)
@@ -116,7 +116,7 @@ This function takes two strings as input. If both strings are valid ICD-10 codes
 ```python
 icd.get_nearest_common_ancestor("H28.0","H25.1")
 #"H25-H28"
-icd.is_ancestor("K35","E21.0")
+icd.get_nearest_common_ancestor("K35","E21.0")
 #""
 ```
 ### get_all_codes(keep_dots)
