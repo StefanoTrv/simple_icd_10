@@ -121,13 +121,13 @@ def _get_descendants(code):
             t = ["W00-W19", "W20-W49", "W50-W64", "W65-W74", "W75-W84", "W85-W99", "X00-X09", "X10-X19", "X20-X29", "X30-X39", "X40-X49", "X50-X57", "X58-X59"]
             return t + [c for l in [get_descendants(x) for x in t] for c in l]
         elif code=="X85-Y09":#this is simpler since all its children are codes
-            return [c for c in all_codes_no_dots if not is_chapter_or_block(c) and ((c[0]=="X" and int(code[1:3])>=85) or (c[0]=="Y" and int(code[1:3])<=9))]
+            return _select_adjacent_codes_with_condition(lambda c:not is_chapter_or_block(c) and ((c[0]=="X" and int(code[1:3])>=85) or (c[0]=="Y" and int(code[1:3])<=9)))
         else:
-            blocks = [c for c in all_codes_no_dots if is_chapter_or_block(c) and not c in chapter_list and c[0]==code[0] and int(c[1:3])>=int(code[1:3]) and int(c[-2:])<=int(code[-2:]) and not c==code]
-            codes = [c for c in all_codes_no_dots if not is_chapter_or_block(c) and c[0]==code[0] and int(c[1:3])>=int(code[1:3]) and int(c[1:3])<=int(code[-2:])]
+            blocks = _select_adjacent_codes_with_condition(lambda c:is_chapter_or_block(c) and not c in chapter_list and c[0]==code[0] and int(c[1:3])>=int(code[1:3]) and int(c[-2:])<=int(code[-2:]) and not c==code)
+            codes = _select_adjacent_codes_with_condition(lambda c:not is_chapter_or_block(c) and c[0]==code[0] and int(c[1:3])>=int(code[1:3]) and int(c[1:3])<=int(code[-2:]))
             return blocks + codes
     elif len(code)==3:#if its a category
-        return [c for c in all_codes_no_dots if c[:3]==code and not c==code and len(c)<7]
+        return _select_adjacent_codes_with_condition(lambda c:c[:3]==code and not c==code and len(c)<7)
     else:#if its a subcategory
         if code=="B180":#two special cases
             return ["B1800", "B1809"]
@@ -207,3 +207,14 @@ def disable_memoization():
     global use_memoization
     reset_memoization()
     use_memoization = False
+
+#returns all the codes that respect the condition in "condition", supposing that all these codes are adjacent in all_codes_no_dots
+def _select_adjacent_codes_with_condition(condition):
+    i = 0
+    while(i<len(all_codes_no_dots) and not condition(all_codes_no_dots[i])):
+        i = i+1
+    l = []
+    while(i<len(all_codes_no_dots) and condition(all_codes_no_dots[i])):
+        l.append(all_codes_no_dots[i])
+        i = i+1
+    return l
