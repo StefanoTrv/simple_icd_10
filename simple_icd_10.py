@@ -40,6 +40,7 @@ def get_index(code):
     c = _remove_dot(code)
     return _get_index(c)
 
+#gets index without trying to remove the dot first
 def _get_index(code):
     for i in range(len(all_codes_no_dots)):
         if all_codes_no_dots[i]==code:
