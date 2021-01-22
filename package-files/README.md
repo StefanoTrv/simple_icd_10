@@ -2,6 +2,7 @@
 A simple python library for ICD-10 codes
 
 ## Index
+* [Release notes](#release_notes)
 * [Introduction](#introduction)
 * [Setup](#setup)
 * [What a code is and how it looks like](#what-a-code-is-and-how-it-looks-like)
@@ -10,7 +11,7 @@ A simple python library for ICD-10 codes
   * [is_valid_item(code)](#is_valid_itemcode)
   * [is_valid_code(code)](#is_valid_codecode)
   * [is_chapter_or_block(code)](#is_chapter_or_blockcode)
-  * [get_descriptions(code)](#get_descriptionscode)
+  * [get_description(code)](#get_descriptioncode)
   * [get_descendants(code)](#get_descendantscode)
   * [get_ancestors(code)](#get_ancestorscode)
   * [is_descendant(a,b)](#is_descendantab)
@@ -22,6 +23,13 @@ A simple python library for ICD-10 codes
   * [enable_memoization()](#enable_memoization)
   * [reset_memoization()](#reset_memoization)
 * [Conclusion](#conclusion)
+
+## Release notes
+* **1.3.0**: Additional major performance improvements
+* **1.2.1**: Minor fix to ensure the integrity of the data
+* **1.2.0**: Added memoization to achieve high performance improvements
+* **1.1**: Added the function "get_nearest_common_ancestor"
+* **1.0**: Initial release
 
 ## Introduction
 The scope of this library is to provide a simple instrument for dealing with ICD-10 codes in your Python projects. It provides ways to check whether a code exists, to find its ancestors and descendants, to see its description and much more.  
@@ -75,12 +83,12 @@ icd.is_chapter_or_block("A00-B99")
 icd.is_chapter_or_block("B99")
 #False
 ```
-### get_descriptions(code)
+### get_description(code)
 This function takes a string as input. If the string is a valid ICD-10 code, it returns a string with its short description, otherwise it raises a ValueError.
 ```python
-icd.is_chapter_or_block("XII")
+icd.get_description("XII")
 #"Diseases of the skin and subcutaneous tissue"
-icd.is_chapter_or_block("F00")
+icd.get_description("F00")
 #"Dementia in Alzheimer disease"
 ```
 ### get_descendants(code)
@@ -116,7 +124,7 @@ This function takes two strings as input. If both strings are valid ICD-10 codes
 ```python
 icd.get_nearest_common_ancestor("H28.0","H25.1")
 #"H25-H28"
-icd.is_ancestor("K35","E21.0")
+icd.get_nearest_common_ancestor("K35","E21.0")
 #""
 ```
 ### get_all_codes(keep_dots)

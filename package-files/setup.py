@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="simple_icd_10",
-    version="1.2.1",
+    version="1.3.0",
     author="Stefano Travasci",
     author_email="stefanotravasci@gmail.com",
     description="A simple python library for ICD-10 codes",
