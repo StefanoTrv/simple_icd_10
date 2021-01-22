@@ -2,6 +2,7 @@
 A simple python library for ICD-10 codes
 
 ## Index
+* [Release notes](#release_notes)
 * [Introduction](#introduction)
 * [Setup](#setup)
 * [What a code is and how it looks like](#what-a-code-is-and-how-it-looks-like)
@@ -22,6 +23,13 @@ A simple python library for ICD-10 codes
   * [enable_memoization()](#enable_memoization)
   * [reset_memoization()](#reset_memoization)
 * [Conclusion](#conclusion)
+
+## Release notes
+* **1.3.0**: Additional major performance improvements
+* **1.2.1**: Minor fix to ensure the integrity of the data
+* **1.2.0**: Added memoization to achieve high performance improvements
+* **1.1**: Added the function "get_nearest_common_ancestor"
+* **1.0**: Initial release
 
 ## Introduction
 The scope of this library is to provide a simple instrument for dealing with ICD-10 codes in your Python projects. It provides ways to check whether a code exists, to find its ancestors and descendants, to see its description and much more.  
