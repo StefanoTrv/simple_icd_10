@@ -38,8 +38,11 @@ def is_valid_code(code):
 
 def get_index(code):
     c = _remove_dot(code)
+    return _get_index(c)
+
+def _get_index(code):
     for i in range(len(all_codes_no_dots)):
-        if all_codes_no_dots[i]==c:
+        if all_codes_no_dots[i]==code:
             return i
     raise ValueError(code+" is not a valid ICD-10 code.")
 
@@ -112,7 +115,7 @@ def get_descendants(code):
 
 def _get_descendants(code):
     if code in chapter_list:#if it's a chapter
-        return [c for c in all_codes_no_dots if _get_chapter(c)==code]
+        return _select_adjacent_codes_with_condition(lambda c:_get_chapter(c)==code,_get_index(code))
     elif len(code)==7:#if it's a block
         #we consider first the three blocks whose codes don't all begin with the same letter
         if code=="V01-X59":
@@ -121,13 +124,13 @@ def _get_descendants(code):
             t = ["W00-W19", "W20-W49", "W50-W64", "W65-W74", "W75-W84", "W85-W99", "X00-X09", "X10-X19", "X20-X29", "X30-X39", "X40-X49", "X50-X57", "X58-X59"]
             return t + [c for l in [get_descendants(x) for x in t] for c in l]
         elif code=="X85-Y09":#this is simpler since all its children are codes
-            return _select_adjacent_codes_with_condition(lambda c:not is_chapter_or_block(c) and ((c[0]=="X" and int(code[1:3])>=85) or (c[0]=="Y" and int(code[1:3])<=9)))
+            return _select_adjacent_codes_with_condition(lambda c:not is_chapter_or_block(c) and ((c[0]=="X" and int(code[1:3])>=85) or (c[0]=="Y" and int(code[1:3])<=9)),_get_index(code))
         else:
-            blocks = _select_adjacent_codes_with_condition(lambda c:is_chapter_or_block(c) and not c in chapter_list and c[0]==code[0] and int(c[1:3])>=int(code[1:3]) and int(c[-2:])<=int(code[-2:]) and not c==code)
-            codes = _select_adjacent_codes_with_condition(lambda c:not is_chapter_or_block(c) and c[0]==code[0] and int(c[1:3])>=int(code[1:3]) and int(c[1:3])<=int(code[-2:]))
+            blocks = _select_adjacent_codes_with_condition(lambda c:is_chapter_or_block(c) and not c in chapter_list and c[0]==code[0] and int(c[1:3])>=int(code[1:3]) and int(c[-2:])<=int(code[-2:]) and not c==code,_get_index(code))
+            codes = _select_adjacent_codes_with_condition(lambda c:not is_chapter_or_block(c) and c[0]==code[0] and int(c[1:3])>=int(code[1:3]) and int(c[1:3])<=int(code[-2:]),_get_index(code))
             return blocks + codes
     elif len(code)==3:#if its a category
-        return _select_adjacent_codes_with_condition(lambda c:c[:3]==code and not c==code and len(c)<7)
+        return _select_adjacent_codes_with_condition(lambda c:c[:3]==code and not c==code and len(c)<7,_get_index(code))
     else:#if its a subcategory
         if code=="B180":#two special cases
             return ["B1800", "B1809"]
@@ -153,7 +156,7 @@ def _get_ancestors(code):
     if code in chapter_list:#if its a chapter
         return []#it has no parent
     elif is_chapter_or_block(code):#if its a block
-        i = get_index(code)
+        i = _get_index(code)
         if code=="V01-V99" or code=="W00-X59":#we start with the special cases
             return ["V01-X59"] + get_ancestors("V01-X59")
         elif code=="W00-W19" or code=="W20-W49" or code=="W50-W64" or code=="W65-W74" or code=="W75-W84" or code=="W85-W99" or code=="X00-X09" or code=="X10-X19" or code=="X20-X29" or code=="X30-X39" or code=="X40-X49" or code=="X50-X57" or code=="X58-X59":
@@ -165,7 +168,7 @@ def _get_ancestors(code):
                     return [all_codes_no_dots[k]] + get_ancestors(all_codes_no_dots[k])
             return [_get_chapter(code)]
     elif len(code)==3:#if its a category
-        i = get_index(code)
+        i = _get_index(code)
         for h in range(1,i+1):
             k=i-h
             if len(all_codes_no_dots[k])==7:#the first category we meet going to the left will contain our code
@@ -208,9 +211,8 @@ def disable_memoization():
     reset_memoization()
     use_memoization = False
 
-#returns all the codes that respect the condition in "condition", supposing that all these codes are adjacent in all_codes_no_dots
-def _select_adjacent_codes_with_condition(condition):
-    i = 0
+#returns all the codes that respect the condition in "condition", supposing that all these codes are adjacent in all_codes_no_dots, starting from the ith code
+def _select_adjacent_codes_with_condition(condition, i=0):
     while(i<len(all_codes_no_dots) and not condition(all_codes_no_dots[i])):
         i = i+1
     l = []
