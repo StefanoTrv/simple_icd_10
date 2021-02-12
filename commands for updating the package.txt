@@ -1,0 +1,4 @@
+python.exe -m pip install --user --upgrade setuptools wheel
+python.exe setup.py sdist bdist_wheel
+python.exe -m pip install --user --upgrade twine
+python.exe -m twine upload dist/*
