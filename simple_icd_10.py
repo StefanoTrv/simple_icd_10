@@ -127,6 +127,7 @@ def _get_descendants(code):
         elif code=="X85-Y09":#this is simpler since all its children are codes
             return _select_adjacent_codes_with_condition(lambda c:not is_chapter_or_block(c) and ((c[0]=="X" and int(code[1:3])>=85) or (c[0]=="Y" and int(code[1:3])<=9)),_get_index(code))
         else:
+            #the first part of the lambda expression checks for categories, the second checks for blocks
             return _select_adjacent_codes_with_condition(lambda c:(not is_chapter_or_block(c) and c[0]==code[0] and int(c[1:3])>=int(code[1:3]) and int(c[1:3])<=int(code[-2:]))or(is_chapter_or_block(c) and not c in chapter_list and c[0]==code[0] and int(c[1:3])>=int(code[1:3]) and int(c[-2:])<=int(code[-2:]) and not c==code),_get_index(code))
     elif len(code)==3:#if its a category
         return _select_adjacent_codes_with_condition(lambda c:c[:3]==code and not c==code and len(c)<7,_get_index(code))
