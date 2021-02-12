@@ -25,6 +25,7 @@ A simple python library for ICD-10 codes
 * [Conclusion](#conclusion)
 
 ## Release notes
+* **1.3.1**: Huge performance improvements, bug fix
 * **1.3.0**: Additional major performance improvements
 * **1.2.1**: Minor fix to ensure the integrity of the data
 * **1.2.0**: Added memoization to achieve high performance improvements
