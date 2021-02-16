@@ -11,6 +11,10 @@ A simple python library for ICD-10 codes
   * [is_valid_item(code)](#is_valid_itemcode)
   * [is_valid_code(code)](#is_valid_codecode)
   * [is_chapter_or_block(code)](#is_chapter_or_blockcode)
+  * [is_chapter(code)](#is_chaptercode)
+  * [is_block(code)](#is_blockcode)
+  * [is_category(code)](#is_categorycode)
+  * [is_subcategory(code)](#is_subcategorycode)
   * [get_description(code)](#get_descriptioncode)
   * [get_descendants(code)](#get_descendantscode)
   * [get_ancestors(code)](#get_ancestorscode)
@@ -25,6 +29,8 @@ A simple python library for ICD-10 codes
 * [Conclusion](#conclusion)
 
 ## Release notes
+* **1.4.0**: Added the functions "is_chapter", "is_block", "is_category" and "is_subcategory"
+* **1.3.2**: Re-relase of the previous version (pretend this doesn't exist)
 * **1.3.1**: Huge performance improvements, bug fix
 * **1.3.0**: Additional major performance improvements
 * **1.2.1**: Minor fix to ensure the integrity of the data
@@ -82,6 +88,38 @@ This function takes a string as input and returns True if the string is a valid 
 icd.is_chapter_or_block("A00-B99")
 #True
 icd.is_chapter_or_block("B99")
+#False
+```
+### is_chapter(code)
+This function takes a string as input and returns True if the string is a valid chapter in ICD-10, False otherwise.
+```python
+icd.is_chapter("XII")
+#True
+icd.is_chapter("B99")
+#False
+```
+### is_block(code)
+This function takes a string as input and returns True if the string is a valid block in ICD-10, False otherwise.
+```python
+icd.is_block("A00-B99")
+#True
+icd.is_block("B99")
+#False
+```
+### is_category(code)
+This function takes a string as input and returns True if the string is a valid category in ICD-10, False otherwise.
+```python
+icd.is_category("B99")
+#True
+icd.is_category("XIV")
+#False
+```
+### is_subcategory(code)
+This function takes a string as input and returns True if the string is a valid subcategory in ICD-10, False otherwise.
+```python
+icd.is_subcategory("B95.1")
+#True
+icd.is_subcategory("B99")
 #False
 ```
 ### get_description(code)
