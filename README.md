@@ -45,7 +45,7 @@ The codes and their descriptions were taken from [this page](https://icd.who.int
 You can find the all the codes and their descriptions in plain text in the "data" folder.
 
 ## Setup
-You can either use the "simple_icd_10.py" file that contains all the source code, or install the package with pip, using this command:
+You can either use the "simple_icd_10.py" file that contains all the source code (you can find it in the [GitHub repository](https://github.com/StefanoTrv/simple_icd_10)), or install the package with pip, using this command:
 ```bash
 pip install simple-icd-10
 ```
