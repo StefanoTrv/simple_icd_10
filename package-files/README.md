@@ -2,14 +2,14 @@
 A simple python library for ICD-10 codes
 
 ## Index
-* [Release notes](#release_notes)
+* [Release notes](#release-notes)
 * [Introduction](#introduction)
 * [Setup](#setup)
 * [What a code is and how it looks like](#what-a-code-is-and-how-it-looks-like)
 * [Memoization](#memoization)
 * [Documentation](#documentation)
   * [is_valid_item(code)](#is_valid_itemcode)
-  * [is_valid_code(code)](#is_valid_codecode)
+  * [is_category_or_subcategory(code)](#is_category_or_subcategorycode)
   * [is_chapter_or_block(code)](#is_chapter_or_blockcode)
   * [is_chapter(code)](#is_chaptercode)
   * [is_block(code)](#is_blockcode)
@@ -21,6 +21,7 @@ A simple python library for ICD-10 codes
   * [is_descendant(a,b)](#is_descendantab)
   * [is_ancestor(a,b)](#is_ancestorab)
   * [get_nearest_common_ancestor(a,b)](#get_nearest_common_ancestorab)
+  * [is_leaf(code)](#is_leafcode)
   * [get_all_codes(keep_dots)](#get_all_codeskeep_dots)
   * [get_index(code)](#get_indexcode)
   * [disable_memoization()](#disable_memoization)
@@ -29,6 +30,7 @@ A simple python library for ICD-10 codes
 * [Conclusion](#conclusion)
 
 ## Release notes
+* **1.5.0**: Added the function "is_leaf", renamed the function "is_valid_code" to "is_category_or_subcategory" (the old name can still be used for backward compatibility), removed from the README a section rendered obsolete by this renaming.
 * **1.4.0**: Added the functions "is_chapter", "is_block", "is_category" and "is_subcategory"
 * **1.3.2**: Re-relase of the previous version (pretend this doesn't exist)
 * **1.3.1**: Huge performance improvements, bug fix
@@ -45,14 +47,13 @@ The codes and their descriptions were taken from [this page](https://icd.who.int
 You can find the all the codes and their descriptions in plain text in the "data" folder.
 
 ## Setup
-You can either use the "simple_icd_10.py" file that contains all the source code, or install the package with pip, using this command:
+You can either use the "simple_icd_10.py" file that contains all the source code (you can find it in the [GitHub repository](https://github.com/StefanoTrv/simple_icd_10)), or install the package with pip, using this command:
 ```bash
 pip install simple-icd-10
 ```
 
 ## What a code is and how it looks like
-We need to start by clarifying what a code is for us. The [ICD-10 instruction manual](https://icd.who.int/browse10/Content/statichtml/ICD10Volume2_en_2019.pdf) makes a distinction between **chapters**, **block of categories**, **three-character categories** and **four-character subcategories** (which from now on we'll refer to as chapters, blocks, categories and subcategories), with a few additional five-character subcategories: we will consider all these items as codes.  
-That said, this library includes ways to make distinctions between the first two kinds of codes (chapters and blocks) and the other two kinds of codes (categories and subcategories); while making this distinction we may consider only categories and subcategories to be "codes", while we may use "items" as a more general term. However, in every other circumstance the definition of "code" is the more inclusive one.
+We need to start by clarifying what a code is for us. The [ICD-10 instruction manual](https://icd.who.int/browse10/Content/statichtml/ICD10Volume2_en_2019.pdf) makes a distinction between **chapters**, **block of categories**, **three-character categories** and **four-character subcategories** (which from now on we'll refer to as chapters, blocks, categories and subcategories), with a few additional five-character subcategories: we will consider all these items as codes.
 
 Generally speaking, the codes of subcategories can be written in two different ways: with a dot (for example "I13.1") and without the dot (for example "I131"). The functions in this library can receive as input codes in both these formats. The codes returned by the functions will always be in the format without the dot.
 
@@ -74,12 +75,12 @@ icd.is_valid_item("cat")
 icd.is_valid_item("B99")
 #True
 ```
-### is_valid_code(code)
+### is_category_or_subcategory(code)
 This function takes a string as input and returns True if the string is a valid category or subcategory in ICD-10, False otherwise.
 ```python
-icd.is_valid_code("A00-B99")
+icd.is_category_or_subcategory("A00-B99")
 #False
-icd.is_valid_code("B99")
+icd.is_category_or_subcategory("B99")
 #True
 ```
 ### is_chapter_or_block(code)
@@ -164,6 +165,15 @@ This function takes two strings as input. If both strings are valid ICD-10 codes
 icd.get_nearest_common_ancestor("H28.0","H25.1")
 #"H25-H28"
 icd.get_nearest_common_ancestor("K35","E21.0")
+#""
+```
+### is_leaf(code)
+This function takes a string as input. If the string is a valid ICD-10 code, it returns True if the code is a leaf in the ICD-10 classification (that is, it has no descendants), False otherwise. If the string is not a valid ICD-10 code it raises a ValueError.
+```python
+icd.is_leaf("H28")
+#False
+icd.is_leaf("H28.0")
+#True
 #""
 ```
 ### get_all_codes(keep_dots)

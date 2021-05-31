@@ -1,3 +1,4 @@
+LICENSE
 README.md
 setup.py
 simple_icd_10/__init__.py

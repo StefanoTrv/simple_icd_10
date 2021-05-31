@@ -39,16 +39,16 @@ def is_block(code):
     code = _remove_dot(code)
     return len(code)==7 and (code in all_codes_no_dots)
 
-def is_valid_code(code):
+def is_category_or_subcategory(code):
     return is_valid_item(code) and not is_chapter_or_block(code)
 
 def is_category(code):
     code = _remove_dot(code)
-    return len(code)==3 and is_valid_code(code)
+    return len(code)==3 and is_category_or_subcategory(code)
 
 def is_subcategory(code):
     code = _remove_dot(code)
-    return len(code)!=3 and is_valid_code(code)
+    return len(code)!=3 and is_category_or_subcategory(code)
 
 def get_index(code):
     c = _remove_dot(code)
@@ -210,6 +210,9 @@ def get_nearest_common_ancestor(a,b):
             return anc
     return ""
 
+def is_leaf(code):
+    return len(get_descendants(code))==0
+
 def reset_memoization():
     global ancestors_dict
     ancestors_dict = {}
@@ -234,3 +237,7 @@ def _select_adjacent_codes_with_condition(condition, i=0):
         l.append(all_codes_no_dots[i])
         i = i+1
     return l
+
+#only for retrocompatibility
+def is_valid_code(code):
+    return is_category_or_subcategory(code)
