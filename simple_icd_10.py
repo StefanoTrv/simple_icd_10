@@ -210,6 +210,9 @@ def get_nearest_common_ancestor(a,b):
             return anc
     return ""
 
+def is_leaf(code):
+    return len(get_descendants(code))==0
+
 def reset_memoization():
     global ancestors_dict
     ancestors_dict = {}
