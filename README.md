@@ -145,7 +145,7 @@ icd.get_descendants("C00")
 ### get_ancestors(code)
 This function takes a string as input. If the string is a valid ICD-10 code, it returns a list containing all its ancestors in the ICD-10 classification, otherwise it raises a ValueError. The results are ordered from its parent to its most distant ancestor.
 ```python
-icd.get_descendants("H60.1")
+icd.get_ancestors("H60.1")
 #['H60', 'H60-H62', 'VIII']
 ```
 ### is_descendant(a,b)
