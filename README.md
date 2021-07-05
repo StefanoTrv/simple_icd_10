@@ -42,7 +42,8 @@ A simple python library for ICD-10 codes
 
 ## Introduction
 The scope of this library is to provide a simple instrument for dealing with ICD-10 codes in your Python projects. It provides ways to check whether a code exists, to find its ancestors and descendants, to see its description and much more.  
-The codes and their descriptions were taken from [this page](https://icd.who.int/browse10/2019/en#) in the WHO's website and are referred to the **2019 version of ICD-10**.
+The codes and their descriptions were taken from [this page](https://icd.who.int/browse10/2019/en#) in the WHO's website and are referred to the **2019 version of ICD-10**.  
+If you are looking for a library that deals with ICD-10-CM codes instead of ICD-10 codes, you can check the [simple_icd_10_CM library](https://github.com/StefanoTrv/simple_icd_10_CM).
 
 You can find the all the codes and their descriptions in plain text in the "data" folder.
 
@@ -66,7 +67,7 @@ Generally speaking, the codes of subcategories can be written in two different w
 Since version 1.2.0, this library uses [memoization](https://en.wikipedia.org/wiki/Memoization) to improve the speed of several functions. While I suggest you always keep it enabled because of the great performance improvements that it brings, you are provided with functions to disable and re-enable it as you wish.
 
 ## Documentation
-Here I will list all the functions provided by this library and describe how to use them. If you are interested in a more interactive introduction to simple_icd_10, please take a look at the Jupyter Notebook "Showcase notebook.ipynb"; there you can also find more examples.
+Here I will list all the functions provided by this library and describe how to use them. If you are interested in a more interactive introduction to simple_icd_10, please take a look at the Jupyter Notebook ["Showcase notebook.ipynb"](https://github.com/StefanoTrv/simple_icd_10/blob/master/Showcase%20notebook.ipynb); there you can also find more examples.
 
 Here we suppose we have imported the library as follows:
 ```python
