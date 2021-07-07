@@ -16,20 +16,25 @@ A simple python library for ICD-10 codes
   * [is_category(code)](#is_categorycode)
   * [is_subcategory(code)](#is_subcategorycode)
   * [get_description(code)](#get_descriptioncode)
-  * [get_descendants(code)](#get_descendantscode)
+  * [get_parent(code)](#get_parentcode)
+  * [get_children(code)](#get_childrencode)
   * [get_ancestors(code)](#get_ancestorscode)
-  * [is_descendant(a,b)](#is_descendantab)
+  * [get_descendants(code)](#get_descendantscode)
   * [is_ancestor(a,b)](#is_ancestorab)
+  * [is_descendant(a,b)](#is_descendantab)
   * [get_nearest_common_ancestor(a,b)](#get_nearest_common_ancestorab)
   * [is_leaf(code)](#is_leafcode)
   * [get_all_codes(keep_dots)](#get_all_codeskeep_dots)
   * [get_index(code)](#get_indexcode)
+  * [remove_dot(code)](#remove_dotcode)
+  * [add_dot(code)](#add_dotcode)
   * [disable_memoization()](#disable_memoization)
   * [enable_memoization()](#enable_memoization)
   * [reset_memoization()](#reset_memoization)
 * [Conclusion](#conclusion)
 
 ## Release notes
+* **1.6.0**: Added the functions "get_parent", "get_children", "remove_dot" and "add_dot". These functions could be optimized for better performance: contact me if you feel that such improvement is needed.
 * **1.5.0**: Added the function "is_leaf", renamed the function "is_valid_code" to "is_category_or_subcategory" (the old name can still be used for backward compatibility), removed from the README a section rendered obsolete by this renaming.
 * **1.4.0**: Added the functions "is_chapter", "is_block", "is_category" and "is_subcategory"
 * **1.3.2**: Re-relase of the previous version (pretend this doesn't exist)
@@ -61,7 +66,7 @@ conda install -c stefanotrv simple_icd_10
 ## What a code is and how it looks like
 We need to start by clarifying what a code is for us. The [ICD-10 instruction manual](https://icd.who.int/browse10/Content/statichtml/ICD10Volume2_en_2019.pdf) makes a distinction between **chapters**, **block of categories**, **three-character categories** and **four-character subcategories** (which from now on we'll refer to as chapters, blocks, categories and subcategories), with a few additional five-character subcategories: we will consider all these items as codes.
 
-Generally speaking, the codes of subcategories can be written in two different ways: with a dot (for example "I13.1") and without the dot (for example "I131"). The functions in this library can receive as input codes in both these formats. The codes returned by the functions will always be in the format without the dot.
+Generally speaking, the codes of subcategories can be written in two different ways: with a dot (for example "I13.1") and without the dot (for example "I131"). The functions in this library can receive as input codes in both these formats. The codes returned by the functions will always be in the format without the dot. You can easily change the format of a code by using the [`remove_dot`](#remove_dotcode) and [`add_dot`](#add_dotcode) functions.
 
 ## Memoization
 Since version 1.2.0, this library uses [memoization](https://en.wikipedia.org/wiki/Memoization) to improve the speed of several functions. While I suggest you always keep it enabled because of the great performance improvements that it brings, you are provided with functions to disable and re-enable it as you wish.
@@ -137,11 +142,21 @@ icd.get_description("XII")
 icd.get_description("F00")
 #"Dementia in Alzheimer disease"
 ```
-### get_descendants(code)
-This function takes a string as input. If the string is a valid ICD-10 code, it returns a list containing all its descendants in the ICD-10 classification, otherwise it raises a ValueError. While usually the returned codes are ordered, no particular order is guaranteed.
+### get_parent(code)
+This function takes a string as input. If the string is a valid ICD-10 code, it returns a string containing its parent, otherwise it raises a ValueError. If the code doesn't have a parent (that is, if it's a chapter), it returns an empty string.
 ```python
-icd.get_descendants("C00")
-#['C000', 'C001', 'C002', 'C003', 'C004', 'C005', 'C006', 'C008', 'C009']
+icd.get_parent("C00")
+#"C00-C14"
+icd.get_parent("XII")
+#""
+```
+### get_children(code)
+This function takes a string as input. If the string is a valid ICD-10 code, it returns a list of strings containing its children, otherwise it raises a ValueError. If the code doesn't have children, it returns an empty list.
+```python
+icd.get_children("XII")
+#['L00-L08', 'L10-L14', 'L20-L30', 'L40-L45', 'L50-L54', 'L55-L59', 'L60-L75', 'L80-L99']
+icd.get_children("H60.1")
+#[]
 ```
 ### get_ancestors(code)
 This function takes a string as input. If the string is a valid ICD-10 code, it returns a list containing all its ancestors in the ICD-10 classification, otherwise it raises a ValueError. The results are ordered from its parent to its most distant ancestor.
@@ -149,13 +164,11 @@ This function takes a string as input. If the string is a valid ICD-10 code, it 
 icd.get_ancestors("H60.1")
 #['H60', 'H60-H62', 'VIII']
 ```
-### is_descendant(a,b)
-This function takes two strings as input. If both strings are valid ICD-10 codes, it returns True if the first string is a descendant of the second string. If at least one of the strings is not a valid ICD-10 code, it raises a ValueError.
+### get_descendants(code)
+This function takes a string as input. If the string is a valid ICD-10 code, it returns a list containing all its descendants in the ICD-10 classification, otherwise it raises a ValueError. While usually the returned codes are ordered, no particular order is guaranteed.
 ```python
-icd.is_descendant("R01.0","XVIII")
-#True
-icd.is_descendant("M31","K00-K14")
-#False
+icd.get_descendants("C00")
+#['C000', 'C001', 'C002', 'C003', 'C004', 'C005', 'C006', 'C008', 'C009']
 ```
 ### is_ancestor(a,b)
 This function takes two strings as input. If both strings are valid ICD-10 codes, it returns True if the first string is an ancestor of the second string. If at least one of the strings is not a valid ICD-10 code, it raises a ValueError.
@@ -163,6 +176,14 @@ This function takes two strings as input. If both strings are valid ICD-10 codes
 icd.is_ancestor("XVIII","R01.0")
 #True
 icd.is_ancestor("K00-K14","M31")
+#False
+```
+### is_descendant(a,b)
+This function takes two strings as input. If both strings are valid ICD-10 codes, it returns True if the first string is a descendant of the second string. If at least one of the strings is not a valid ICD-10 code, it raises a ValueError.
+```python
+icd.is_descendant("R01.0","XVIII")
+#True
+icd.is_descendant("M31","K00-K14")
 #False
 ```
 ### get_nearest_common_ancestor(a,b)
@@ -197,6 +218,26 @@ icd.get_index("P00")
 #7159
 icd.get_all_codes(True)[7159]
 #"P00"
+```
+### remove_dot(code)
+This function takes a string as input. If the string is a valid ICD-10 code, it returns the same code in the notation without the dot, otherwise it raises a ValueError.
+```python
+icd.remove_dot("H60.1")
+#"H601"
+icd.remove_dot("H601")
+#"H601"
+icd.remove_dot("G10-G14")
+#"G10-G14"
+```
+### add_dot(code)
+This function takes a string as input. If the string is a valid ICD-10 code, it returns the same code in the notation with the dot, otherwise it raises a ValueError.
+```python
+icd.add_dot("H60.1")
+#"H60.1"
+icd.add_dot("H601")
+#"H60.1"
+icd.add_dot("G10-G14")
+#"G10-G14"
 ```
 ### disable_memoization()
 This function disables memoization and deletes the results that memoization has saved so far. If memoization is already disabled, nothing happens.
