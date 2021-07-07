@@ -210,8 +210,25 @@ def get_nearest_common_ancestor(a,b):
             return anc
     return ""
 
+def get_parent(code):
+    ancestors = get_ancestors(code)
+    if len(ancestors)==0:
+        return ""
+    else:
+        return ancestors[0]
+
+def get_children(code):
+    code = _remove_dot(code)
+    return [c for c in get_descendants(code) if get_parent(c)==code]
+
 def is_leaf(code):
     return len(get_descendants(code))==0
+
+def remove_dot(code):
+    return all_codes_no_dots[get_index(code)]
+
+def add_dot(code):
+    return all_codes[get_index(code)]
 
 def reset_memoization():
     global ancestors_dict
