@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: simple-icd-10
-Version: 1.6.3
+Version: 2.0.0
 Summary: A simple python library for ICD-10 codes
 Home-page: https://github.com/StefanoTrv/simple_icd_10
 Author: Stefano Travasci
@@ -23,7 +23,6 @@ A simple python library for ICD-10 codes
 * [Introduction](#introduction)
 * [Setup](#setup)
 * [What a code is and how it looks like](#what-a-code-is-and-how-it-looks-like)
-* [Memoization](#memoization)
 * [Documentation](#documentation)
   * [is_valid_item(code)](#is_valid_itemcode)
   * [is_category_or_subcategory(code)](#is_category_or_subcategorycode)
@@ -41,16 +40,19 @@ A simple python library for ICD-10 codes
   * [is_descendant(a,b)](#is_descendantab)
   * [get_nearest_common_ancestor(a,b)](#get_nearest_common_ancestorab)
   * [is_leaf(code)](#is_leafcode)
-  * [get_all_codes(keep_dots)](#get_all_codeskeep_dots)
+  * [get_all_codes(with_dots=True)](#get_all_codeswith_dotstrue)
   * [get_index(code)](#get_indexcode)
   * [remove_dot(code)](#remove_dotcode)
   * [add_dot(code)](#add_dotcode)
-  * [disable_memoization()](#disable_memoization)
-  * [enable_memoization()](#enable_memoization)
-  * [reset_memoization()](#reset_memoization)
 * [Conclusion](#conclusion)
 
 ## Release notes
+* **2.0.0**: **Major update**
+  * Completely rewritten the library, making the code simpler, easier to understand and customize and less prone to errors!
+  * **Important**: from now on, the default format of the codes returned by the functions in this library will be the one **with** the dot instead of the one **without** the dot. Please consider how this could impact your project before updating the package.
+  * The results of "get_descendants" are now always ordered.
+  * The argument in "get_all_codes" (now renamed to "with_dots") is now optional and is True by default.
+  * **Removed the memoization**: thanks to the new implementation of the library, memoization is no longer needed.
 * **1.6.3**: Fixed a bug relative to the descendants of block "X85-Y09".
 * **1.6.2**: Fixed a bug that caused incorrect results when working with some of the codes in chapter XX.
 * **1.6.1**: Added functions that were missing from release 1.6.0.
@@ -86,10 +88,7 @@ conda install -c stefanotrv simple_icd_10
 ## What a code is and how it looks like
 We need to start by clarifying what a code is for us. The [ICD-10 instruction manual](https://icd.who.int/browse10/Content/statichtml/ICD10Volume2_en_2019.pdf) makes a distinction between **chapters**, **block of categories**, **three-character categories** and **four-character subcategories** (which from now on we'll refer to as chapters, blocks, categories and subcategories), with a few additional five-character subcategories: we will consider all these items as codes.
 
-Generally speaking, the codes of subcategories can be written in two different ways: with a dot (for example "I13.1") and without the dot (for example "I131"). The functions in this library can receive as input codes in both these formats. The codes returned by the functions will always be in the format without the dot. You can easily change the format of a code by using the [`remove_dot`](#remove_dotcode) and [`add_dot`](#add_dotcode) functions.
-
-## Memoization
-Since version 1.2.0, this library uses [memoization](https://en.wikipedia.org/wiki/Memoization) to improve the speed of several functions. While I suggest you always keep it enabled because of the great performance improvements that it brings, you are provided with functions to disable and re-enable it as you wish.
+Generally speaking, the codes of subcategories can be written in two different ways: with a dot (for example "I13.1") and without the dot (for example "I131"). The functions in this library can receive as input codes in both these formats. The codes returned by the functions will always be in the format with the dot. You can easily change the format of a code by using the [`remove_dot`](#remove_dotcode) and [`add_dot`](#add_dotcode) functions.
 
 ## Documentation
 Here I will list all the functions provided by this library and describe how to use them. If you are interested in a more interactive introduction to simple_icd_10, please take a look at the Jupyter Notebook ["Showcase notebook.ipynb"](https://github.com/StefanoTrv/simple_icd_10/blob/master/Showcase%20notebook.ipynb); there you can also find more examples.
@@ -185,10 +184,10 @@ icd.get_ancestors("H60.1")
 #['H60', 'H60-H62', 'VIII']
 ```
 ### get_descendants(code)
-This function takes a string as input. If the string is a valid ICD-10 code, it returns a list containing all its descendants in the ICD-10 classification, otherwise it raises a ValueError. While usually the returned codes are ordered, no particular order is guaranteed.
+This function takes a string as input. If the string is a valid ICD-10 code, it returns a list containing all its descendants in the ICD-10 classification, otherwise it raises a ValueError. The returned codes are ordered as in a pre-order depth-first traversal of the tree containing the ICD-10 classification.
 ```python
 icd.get_descendants("C00")
-#['C000', 'C001', 'C002', 'C003', 'C004', 'C005', 'C006', 'C008', 'C009']
+#['C00.0', 'C00.1', 'C00.2', 'C00.3', 'C00.4', 'C00.5', 'C00.6', 'C00.8', 'C00.9']
 ```
 ### is_ancestor(a,b)
 This function takes two strings as input. If both strings are valid ICD-10 codes, it returns True if the first string is an ancestor of the second string. If at least one of the strings is not a valid ICD-10 code, it raises a ValueError.
@@ -223,12 +222,12 @@ icd.is_leaf("H28.0")
 #True
 #""
 ```
-### get_all_codes(keep_dots)
-This function takes a boolean for input and returns the list of all items in the ICD-10 classification. If the boolean is True the subcategories in the list will have a dot in them, if it's False the subcategories won't have a dot in them.
+### get_all_codes(with_dots=True)
+This function takes a boolean for input and returns the list of all items in the ICD-10 classification. If the optional argument 'with_dots' is True (its default value), the subcategories in the list will have a dot in them, if it's set to False the subcategories won't have a dot in them.
 ```python
-icd.get_all_codes(True)
+icd.get_all_codes()
 #['I', 'A00-A09', 'A00', 'A00.0', 'A00.1', 'A00.9', 'A01', 'A01.0', ...
-icd.get_all_codes(False)
+icd.get_all_codes(with_dots=False)
 #['I', 'A00-A09', 'A00', 'A000', 'A001', 'A009', 'A01', 'A010', ...
 ```
 ### get_index(code)
@@ -258,21 +257,6 @@ icd.add_dot("H601")
 #"H60.1"
 icd.add_dot("G10-G14")
 #"G10-G14"
-```
-### disable_memoization()
-This function disables memoization and deletes the results that memoization has saved so far. If memoization is already disabled, nothing happens.
-```python
-icd.disable_memoization()
-```
-### enable_memoization()
-This function enables memoization. Memoization is enabled by default, so you only need this function if it was previously disabled. If memoization is already enabled, nothing happens.
-```python
-icd.enable_memoization()
-```
-### reset_memoization()
-This function deletes the results that memoization has saved so far. This function is automatically called by `disable_memoization`.
-```python
-icd.reset_memoization()
 ```
 ## Conclusion
 This is everything you needed to know before using the simple_icd_10 library - please contact me if you feel I missed something or there's some passage that you think should be explained better or more. Also contact me if you find any errors in the library or in the documentation.  

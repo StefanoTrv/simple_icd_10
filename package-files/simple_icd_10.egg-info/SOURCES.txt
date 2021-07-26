@@ -7,3 +7,5 @@ simple_icd_10.egg-info/PKG-INFO
 simple_icd_10.egg-info/SOURCES.txt
 simple_icd_10.egg-info/dependency_links.txt
 simple_icd_10.egg-info/top_level.txt
+simple_icd_10/data/__init__.py
+simple_icd_10/data/icd_10_v2019.xml
