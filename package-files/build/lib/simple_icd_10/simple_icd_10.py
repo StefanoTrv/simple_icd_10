@@ -108,7 +108,7 @@ def _get_chapter(code):
         return "XVIII"
     elif l=="S" or l=="T":
         return "XIX"
-    elif l=="V" or l=="X" or l=="Y":
+    elif l=="V" or l=="X" or l=="Y" or l=="W":
         return "XX"
     elif l=="Z":
         return "XXI"
