@@ -23,7 +23,7 @@ A simple python library for ICD-10 codes
   * [is_descendant(a,b)](#is_descendantab)
   * [get_nearest_common_ancestor(a,b)](#get_nearest_common_ancestorab)
   * [is_leaf(code)](#is_leafcode)
-  * [get_all_codes(with_dots)](#get_all_codeswith_dotstrue)
+  * [get_all_codes(with_dots=True)](#get_all_codeswith_dotstrue)
   * [get_index(code)](#get_indexcode)
   * [remove_dot(code)](#remove_dotcode)
   * [add_dot(code)](#add_dotcode)
@@ -32,7 +32,7 @@ A simple python library for ICD-10 codes
 ## Release notes
 * **2.0.0**: **Major update**
   * Completely rewritten the library, making the code simpler, easier to understand and customize and less prone to errors!
-  * **Important**: from now on, the default format for the codes returned by the functions in this library will be the one **with** the dot instead of the one **without** the dot. Please consider how this could impact your project before updating the package.
+  * **Important**: from now on, the default format of the codes returned by the functions in this library will be the one **with** the dot instead of the one **without** the dot. Please consider how this could impact your project before updating the package.
   * The results of "get_descendants" are now always ordered.
   * The argument in "get_all_codes" (now renamed to "with_dots") is now optional and is True by default.
   * **Removed the memoization**: thanks to the new implementation of the library, memoization is no longer needed.
