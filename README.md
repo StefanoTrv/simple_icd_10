@@ -34,6 +34,7 @@ A simple python library for ICD-10 codes
 * [Conclusion](#conclusion)
 
 ## Release notes
+* **1.6.3**: Fixed a bug relative to the descendants of block "X85-Y09".
 * **1.6.2**: Fixed a bug that caused incorrect results when working with some of the codes in chapter XX.
 * **1.6.1**: Added functions that were missing from release 1.6.0.
 * **1.6.0**: Added the functions "get_parent", "get_children", "remove_dot" and "add_dot". These functions could be optimized for better performance: contact me if you feel that such improvement is needed.
