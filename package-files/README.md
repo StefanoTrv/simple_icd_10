@@ -30,6 +30,7 @@ A simple python library for ICD-10 codes
 * [Conclusion](#conclusion)
 
 ## Release notes
+* **2.0.1**: Fixed a minor bug that affected get_nearest_common_ancestor(a,b) when a and b were the same code but written in different formats.
 * **2.0.0**: **Major update**
   * Completely rewritten the library, making the code simpler, easier to understand and customize and less prone to errors!
   * **Important**: from now on, the default format of the codes returned by the functions in this library will be the one **with** the dot instead of the one **without** the dot. Please consider how this could impact your project before updating the package.
@@ -55,10 +56,10 @@ The scope of this library is to provide a simple instrument for dealing with ICD
 The codes and their descriptions were taken from [this page](https://icd.who.int/browse10/2019/en#) in the WHO's website and are referred to the **2019 version of ICD-10**.  
 If you are looking for a library that deals with ICD-10-CM codes instead of ICD-10 codes, you can check the [simple_icd_10_CM library](https://github.com/StefanoTrv/simple_icd_10_CM).
 
-You can find the all the codes and their descriptions in plain text in the "data" folder.
+You can find all the codes and their descriptions in plain text in the ["data" folder](https://github.com/StefanoTrv/simple_icd_10/tree/master/data), as well as an XML file that contains the entire ICD-10 classification.
 
 ## Setup
-You can either use the "simple_icd_10.py" file that contains all the source code (you can find it in the [GitHub repository](https://github.com/StefanoTrv/simple_icd_10)), or install the package with pip, using this command:
+You can either use the "simple_icd_10.py" file, which contains all the source code, in conjunction with the XML file in the "data" folder (you can find them in the [GitHub repository](https://github.com/StefanoTrv/simple_icd_10)), or install the package with pip, using this command:
 ```bash
 pip install simple-icd-10
 ```
