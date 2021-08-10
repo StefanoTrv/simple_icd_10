@@ -190,7 +190,7 @@ icd.is_descendant("M31","K00-K14")
 #False
 ```
 ### get_nearest_common_ancestor(a,b)
-This function takes two strings as input. If both strings are valid ICD-10 codes, it returns the nearest common ancestor if it exists, an empty string if it doesn't exist. If at least one of the strings is not a valid ICD-10 code, it raises a ValueError.
+This function takes two strings as input. If both strings are valid ICD-10 codes, it returns their nearest common ancestor if it exists, an empty string if it doesn't exist. If at least one of the strings is not a valid ICD-10 code, it raises a ValueError.
 ```python
 icd.get_nearest_common_ancestor("H28.0","H25.1")
 #"H25-H28"
