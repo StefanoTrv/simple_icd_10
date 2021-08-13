@@ -54,7 +54,8 @@ A simple python library for ICD-10 codes
 ## Introduction
 The scope of this library is to provide a simple instrument for dealing with ICD-10 codes in your Python projects. It provides ways to check whether a code exists, to find its ancestors and descendants, to see its description and much more.  
 The codes and their descriptions were taken from [this page](https://icd.who.int/browse10/2019/en#) in the WHO's website and are referred to the **2019 version of ICD-10**.  
-If you are looking for a library that deals with ICD-10-CM codes instead of ICD-10 codes, you can check the [simple_icd_10_CM library](https://github.com/StefanoTrv/simple_icd_10_CM).
+If you are looking for a library that deals with ICD-10-CM codes instead of ICD-10 codes, you can check the [simple_icd_10_CM library](https://github.com/StefanoTrv/simple_icd_10_CM).  
+There is also a Java version of this library, [SimpleICD10-Java-edition](https://github.com/StefanoTrv/SimpleICD10-Java-edition).
 
 You can find all the codes and their descriptions in plain text in the ["data" folder](https://github.com/StefanoTrv/simple_icd_10/tree/master/data), as well as an XML file that contains the entire ICD-10 classification.
 
