@@ -43,7 +43,7 @@ A simple python library for ICD-10 codes
 * **1.6.0**: Added the functions "get_parent", "get_children", "remove_dot" and "add_dot". These functions could be optimized for better performance: contact me if you feel that such improvement is needed.
 * **1.5.0**: Added the function "is_leaf", renamed the function "is_valid_code" to "is_category_or_subcategory" (the old name can still be used for backward compatibility), removed from the README a section rendered obsolete by this renaming.
 * **1.4.0**: Added the functions "is_chapter", "is_block", "is_category" and "is_subcategory"
-* **1.3.2**: Re-relase of the previous version (pretend this doesn't exist)
+* **1.3.2**: Re-release of the previous version (pretend this doesn't exist)
 * **1.3.1**: Huge performance improvements, bug fix
 * **1.3.0**: Additional major performance improvements
 * **1.2.1**: Minor fix to ensure the integrity of the data
@@ -54,7 +54,7 @@ A simple python library for ICD-10 codes
 ## Introduction
 The scope of this library is to provide a simple instrument for dealing with ICD-10 codes in your Python projects. It provides ways to check whether a code exists, to find its ancestors and descendants, to see its description and much more.  
 The codes and their descriptions were taken from [this page](https://icd.who.int/browse10/2019/en#) in the WHO's website and are referred to the **2019 version of ICD-10**.  
-If you are looking for a library that deals with ICD-10-CM codes instead of ICD-10 codes, you can check the [simple_icd_10_CM library](https://github.com/StefanoTrv/simple_icd_10_CM).  
+If you are looking for a library that deals with ICD-10-CM codes instead of ICD-10 codes, you can check the [simple_icd_10_CM library](https://github.com/StefanoTrv/simple_icd_10_CM). If you are interested in the ICD-11 MMS classification, you can check out instead the [simple_icd_11 library](https://github.com/StefanoTrv/simple_icd_11).  
 There is also a Java version of this library, [SimpleICD10-Java-edition](https://github.com/StefanoTrv/SimpleICD10-Java-edition).
 
 You can find all the codes and their descriptions in plain text in the ["data" folder](https://github.com/StefanoTrv/simple_icd_10/tree/master/data), as well as an XML file that contains the entire ICD-10 classification.
