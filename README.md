@@ -30,6 +30,7 @@ A simple python library for ICD-10 codes
 * [Conclusion](#conclusion)
 
 ## Release notes
+* **2.1.0**: Added type hints. It now requires Python 3.9 or a later version. Renamed internal variables to discourage direct access. Dropped conda support (old versions are still available).
 * **2.0.1**: Fixed a minor bug that affected get_nearest_common_ancestor(a,b) when a and b were the same code but written in different formats.
 * **2.0.0**: **Major update**
   * Completely rewritten the library, making the code simpler, easier to understand and customize and less prone to errors!
@@ -64,11 +65,7 @@ You can either use the "simple_icd_10.py" file, which contains all the source co
 ```bash
 pip install simple-icd-10
 ```
-
-If you prefer conda, you can install the package using the following command:
-```bash
-conda install -c stefanotrv simple_icd_10 
-```
+The distribution files are also available as [releases in the Github repository](https://github.com/StefanoTrv/simple_icd_10/releases).
 
 ## What a code is and how it looks like
 We need to start by clarifying what a code is for us. The [ICD-10 instruction manual](https://icd.who.int/browse10/Content/statichtml/ICD10Volume2_en_2019.pdf) makes a distinction between **chapters**, **block of categories**, **three-character categories** and **four-character subcategories** (which from now on we'll refer to as chapters, blocks, categories and subcategories), with a few additional five-character subcategories: we will consider all these items as codes.

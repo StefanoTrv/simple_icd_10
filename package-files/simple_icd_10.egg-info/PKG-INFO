@@ -1,17 +1,15 @@
 Metadata-Version: 2.1
-Name: simple-icd-10
-Version: 2.0.1
+Name: simple_icd_10
+Version: 2.1.0
 Summary: A simple python library for ICD-10 codes
 Home-page: https://github.com/StefanoTrv/simple_icd_10
 Author: Stefano Travasci
 Author-email: stefanotravasci@gmail.com
-License: UNKNOWN
 Keywords: ICD-10 icd 10 codes
-Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
 Classifier: Operating System :: OS Independent
-Requires-Python: >=3
+Requires-Python: >=3.9
 Description-Content-Type: text/markdown
 License-File: LICENSE
 
@@ -47,6 +45,7 @@ A simple python library for ICD-10 codes
 * [Conclusion](#conclusion)
 
 ## Release notes
+* **2.1.0**: Added type hints. It now requires Python 3.9 or a later version. Renamed internal variables to discourage direct access. Dropped conda support (old versions are still available).
 * **2.0.1**: Fixed a minor bug that affected get_nearest_common_ancestor(a,b) when a and b were the same code but written in different formats.
 * **2.0.0**: **Major update**
   * Completely rewritten the library, making the code simpler, easier to understand and customize and less prone to errors!
@@ -60,7 +59,7 @@ A simple python library for ICD-10 codes
 * **1.6.0**: Added the functions "get_parent", "get_children", "remove_dot" and "add_dot". These functions could be optimized for better performance: contact me if you feel that such improvement is needed.
 * **1.5.0**: Added the function "is_leaf", renamed the function "is_valid_code" to "is_category_or_subcategory" (the old name can still be used for backward compatibility), removed from the README a section rendered obsolete by this renaming.
 * **1.4.0**: Added the functions "is_chapter", "is_block", "is_category" and "is_subcategory"
-* **1.3.2**: Re-relase of the previous version (pretend this doesn't exist)
+* **1.3.2**: Re-release of the previous version (pretend this doesn't exist)
 * **1.3.1**: Huge performance improvements, bug fix
 * **1.3.0**: Additional major performance improvements
 * **1.2.1**: Minor fix to ensure the integrity of the data
@@ -71,7 +70,8 @@ A simple python library for ICD-10 codes
 ## Introduction
 The scope of this library is to provide a simple instrument for dealing with ICD-10 codes in your Python projects. It provides ways to check whether a code exists, to find its ancestors and descendants, to see its description and much more.  
 The codes and their descriptions were taken from [this page](https://icd.who.int/browse10/2019/en#) in the WHO's website and are referred to the **2019 version of ICD-10**.  
-If you are looking for a library that deals with ICD-10-CM codes instead of ICD-10 codes, you can check the [simple_icd_10_CM library](https://github.com/StefanoTrv/simple_icd_10_CM).
+If you are looking for a library that deals with ICD-10-CM codes instead of ICD-10 codes, you can check the [simple_icd_10_CM library](https://github.com/StefanoTrv/simple_icd_10_CM). If you are interested in the ICD-11 MMS classification, you can check out instead the [simple_icd_11 library](https://github.com/StefanoTrv/simple_icd_11).  
+There is also a Java version of this library, [SimpleICD10-Java-edition](https://github.com/StefanoTrv/SimpleICD10-Java-edition).
 
 You can find all the codes and their descriptions in plain text in the ["data" folder](https://github.com/StefanoTrv/simple_icd_10/tree/master/data), as well as an XML file that contains the entire ICD-10 classification.
 
@@ -80,11 +80,7 @@ You can either use the "simple_icd_10.py" file, which contains all the source co
 ```bash
 pip install simple-icd-10
 ```
-
-If you prefer conda, you can install the package using the following command:
-```bash
-conda install -c stefanotrv simple_icd_10 
-```
+The distribution files are also available as [releases in the Github repository](https://github.com/StefanoTrv/simple_icd_10/releases).
 
 ## What a code is and how it looks like
 We need to start by clarifying what a code is for us. The [ICD-10 instruction manual](https://icd.who.int/browse10/Content/statichtml/ICD10Volume2_en_2019.pdf) makes a distinction between **chapters**, **block of categories**, **three-character categories** and **four-character subcategories** (which from now on we'll refer to as chapters, blocks, categories and subcategories), with a few additional five-character subcategories: we will consider all these items as codes.
@@ -207,7 +203,7 @@ icd.is_descendant("M31","K00-K14")
 #False
 ```
 ### get_nearest_common_ancestor(a,b)
-This function takes two strings as input. If both strings are valid ICD-10 codes, it returns the nearest common ancestor if it exists, an empty string if it doesn't exist. If at least one of the strings is not a valid ICD-10 code, it raises a ValueError.
+This function takes two strings as input. If both strings are valid ICD-10 codes, it returns their nearest common ancestor if it exists, an empty string if it doesn't exist. If at least one of the strings is not a valid ICD-10 code, it raises a ValueError.
 ```python
 icd.get_nearest_common_ancestor("H28.0","H25.1")
 #"H25-H28"
@@ -271,5 +267,3 @@ Donate instead to *Médecins Sans Frontières* to support their efforts to provi
 If you end up making a donation because of this library, feel free to drop me an email: I'll be happy to read it!
 
 *Stefano Travasci*
-
-
