@@ -30,6 +30,7 @@ A simple python library for ICD-10 codes
 * [Conclusion](#conclusion)
 
 ## Release notes
+* **2.1.1**: Fixed X85-Y09 being a child instead of a sibling of X60-X84.
 * **2.1.0**: Added type hints. It now requires Python 3.9 or a later version. Renamed internal variables to discourage direct access. Dropped conda support (old versions are still available).
 * **2.0.1**: Fixed a minor bug that affected get_nearest_common_ancestor(a,b) when a and b were the same code but written in different formats.
 * **2.0.0**: **Major update**

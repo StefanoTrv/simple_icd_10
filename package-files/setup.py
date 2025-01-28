@@ -5,13 +5,13 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="simple_icd_10",
-    version="2.1.0",
+    version="2.1.1",
     author="Stefano Travasci",
     author_email="stefanotravasci@gmail.com",
     description="A simple python library for ICD-10 codes",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/StefanoTrv/simple_icd_10",
+    url="https://simpleicd10.stefanotravasci.it/",
     packages=setuptools.find_packages(),
     package_dir={'simple_icd_10': 'simple_icd_10'},
     package_data={'simple_icd_10': ['data/*']},
