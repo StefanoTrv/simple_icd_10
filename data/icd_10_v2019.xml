@@ -45065,181 +45065,181 @@
 				<name>X84</name>
 				<description>Intentional self-harm by unspecified means</description>
 			</item>
-			<item type="block">
-				<name>X85-Y09</name>
-				<description>Assault</description>
-				<item type="category">
-					<name>X85</name>
-					<description>Assault by drugs, medicaments and biological substances</description>
+		</item>
+		<item type="block">
+			<name>X85-Y09</name>
+			<description>Assault</description>
+			<item type="category">
+				<name>X85</name>
+				<description>Assault by drugs, medicaments and biological substances</description>
+			</item>
+			<item type="category">
+				<name>X86</name>
+				<description>Assault by corrosive substance</description>
+			</item>
+			<item type="category">
+				<name>X87</name>
+				<description>Assault by pesticides</description>
+			</item>
+			<item type="category">
+				<name>X88</name>
+				<description>Assault by gases and vapours</description>
+				<item type="subcategory">
+					<name>X88.0</name>
+					<description>Assault by carbon monoxide from combustion engine exhaust</description>
 				</item>
-				<item type="category">
-					<name>X86</name>
-					<description>Assault by corrosive substance</description>
+				<item type="subcategory">
+					<name>X88.1</name>
+					<description>Assault by carbon monoxide from utility gas</description>
 				</item>
-				<item type="category">
-					<name>X87</name>
-					<description>Assault by pesticides</description>
+				<item type="subcategory">
+					<name>X88.2</name>
+					<description>Assault by carbon monoxide from other domestic fuels</description>
 				</item>
-				<item type="category">
-					<name>X88</name>
-					<description>Assault by gases and vapours</description>
-					<item type="subcategory">
-						<name>X88.0</name>
-						<description>Assault by carbon monoxide from combustion engine exhaust</description>
-					</item>
-					<item type="subcategory">
-						<name>X88.1</name>
-						<description>Assault by carbon monoxide from utility gas</description>
-					</item>
-					<item type="subcategory">
-						<name>X88.2</name>
-						<description>Assault by carbon monoxide from other domestic fuels</description>
-					</item>
-					<item type="subcategory">
-						<name>X88.3</name>
-						<description>Assault by carbon monoxide from other sources</description>
-					</item>
-					<item type="subcategory">
-						<name>X88.4</name>
-						<description>Assault by carbon monoxide from unspecified sources</description>
-					</item>
-					<item type="subcategory">
-						<name>X88.8</name>
-						<description>Assault by other specified gases and vapours</description>
-					</item>
-					<item type="subcategory">
-						<name>X88.9</name>
-						<description>Assault by unspecified gases and vapours</description>
-					</item>
+				<item type="subcategory">
+					<name>X88.3</name>
+					<description>Assault by carbon monoxide from other sources</description>
 				</item>
-				<item type="category">
-					<name>X89</name>
-					<description>Assault by other specified chemicals and noxious substances</description>
+				<item type="subcategory">
+					<name>X88.4</name>
+					<description>Assault by carbon monoxide from unspecified sources</description>
 				</item>
-				<item type="category">
-					<name>X90</name>
-					<description>Assault by unspecified chemical or noxious substance</description>
+				<item type="subcategory">
+					<name>X88.8</name>
+					<description>Assault by other specified gases and vapours</description>
 				</item>
-				<item type="category">
-					<name>X91</name>
-					<description>Assault by hanging, strangulation and suffocation</description>
+				<item type="subcategory">
+					<name>X88.9</name>
+					<description>Assault by unspecified gases and vapours</description>
 				</item>
-				<item type="category">
-					<name>X92</name>
-					<description>Assault by drowning and submersion</description>
+			</item>
+			<item type="category">
+				<name>X89</name>
+				<description>Assault by other specified chemicals and noxious substances</description>
+			</item>
+			<item type="category">
+				<name>X90</name>
+				<description>Assault by unspecified chemical or noxious substance</description>
+			</item>
+			<item type="category">
+				<name>X91</name>
+				<description>Assault by hanging, strangulation and suffocation</description>
+			</item>
+			<item type="category">
+				<name>X92</name>
+				<description>Assault by drowning and submersion</description>
+			</item>
+			<item type="category">
+				<name>X93</name>
+				<description>Assault by handgun discharge</description>
+			</item>
+			<item type="category">
+				<name>X94</name>
+				<description>Assault by rifle, shotgun and larger firearm discharge</description>
+			</item>
+			<item type="category">
+				<name>X95</name>
+				<description>Assault by other and unspecified firearm discharge</description>
+			</item>
+			<item type="category">
+				<name>X96</name>
+				<description>Assault by explosive material</description>
+			</item>
+			<item type="category">
+				<name>X97</name>
+				<description>Assault by smoke, fire and flames</description>
+			</item>
+			<item type="category">
+				<name>X98</name>
+				<description>Assault by steam, hot vapours and hot objects</description>
+			</item>
+			<item type="category">
+				<name>X99</name>
+				<description>Assault by sharp object</description>
+			</item>
+			<item type="category">
+				<name>Y00</name>
+				<description>Assault by blunt object</description>
+			</item>
+			<item type="category">
+				<name>Y01</name>
+				<description>Assault by pushing from high place</description>
+			</item>
+			<item type="category">
+				<name>Y02</name>
+				<description>Assault by pushing or placing victim before moving object</description>
+			</item>
+			<item type="category">
+				<name>Y03</name>
+				<description>Assault by crashing of motor vehicle</description>
+			</item>
+			<item type="category">
+				<name>Y04</name>
+				<description>Assault by bodily force</description>
+			</item>
+			<item type="category">
+				<name>Y05</name>
+				<description>Sexual assault by bodily force</description>
+			</item>
+			<item type="category">
+				<name>Y06</name>
+				<description>Neglect and abandonment</description>
+				<item type="subcategory">
+					<name>Y06.0</name>
+					<description>By spouse or partner</description>
 				</item>
-				<item type="category">
-					<name>X93</name>
-					<description>Assault by handgun discharge</description>
+				<item type="subcategory">
+					<name>Y06.1</name>
+					<description>By parent</description>
 				</item>
-				<item type="category">
-					<name>X94</name>
-					<description>Assault by rifle, shotgun and larger firearm discharge</description>
+				<item type="subcategory">
+					<name>Y06.2</name>
+					<description>By acquaintance or friend</description>
 				</item>
-				<item type="category">
-					<name>X95</name>
-					<description>Assault by other and unspecified firearm discharge</description>
+				<item type="subcategory">
+					<name>Y06.8</name>
+					<description>By other specified persons</description>
 				</item>
-				<item type="category">
-					<name>X96</name>
-					<description>Assault by explosive material</description>
+				<item type="subcategory">
+					<name>Y06.9</name>
+					<description>By unspecified person</description>
 				</item>
-				<item type="category">
-					<name>X97</name>
-					<description>Assault by smoke, fire and flames</description>
+			</item>
+			<item type="category">
+				<name>Y07</name>
+				<description>Other maltreatment</description>
+				<item type="subcategory">
+					<name>Y07.0</name>
+					<description>By spouse or partner</description>
 				</item>
-				<item type="category">
-					<name>X98</name>
-					<description>Assault by steam, hot vapours and hot objects</description>
+				<item type="subcategory">
+					<name>Y07.1</name>
+					<description>By parent</description>
 				</item>
-				<item type="category">
-					<name>X99</name>
-					<description>Assault by sharp object</description>
+				<item type="subcategory">
+					<name>Y07.2</name>
+					<description>By acquaintance or friend</description>
 				</item>
-				<item type="category">
-					<name>Y00</name>
-					<description>Assault by blunt object</description>
+				<item type="subcategory">
+					<name>Y07.3</name>
+					<description>By official authorities</description>
 				</item>
-				<item type="category">
-					<name>Y01</name>
-					<description>Assault by pushing from high place</description>
+				<item type="subcategory">
+					<name>Y07.8</name>
+					<description>By other specified persons</description>
 				</item>
-				<item type="category">
-					<name>Y02</name>
-					<description>Assault by pushing or placing victim before moving object</description>
+				<item type="subcategory">
+					<name>Y07.9</name>
+					<description>By unspecified person</description>
 				</item>
-				<item type="category">
-					<name>Y03</name>
-					<description>Assault by crashing of motor vehicle</description>
-				</item>
-				<item type="category">
-					<name>Y04</name>
-					<description>Assault by bodily force</description>
-				</item>
-				<item type="category">
-					<name>Y05</name>
-					<description>Sexual assault by bodily force</description>
-				</item>
-				<item type="category">
-					<name>Y06</name>
-					<description>Neglect and abandonment</description>
-					<item type="subcategory">
-						<name>Y06.0</name>
-						<description>By spouse or partner</description>
-					</item>
-					<item type="subcategory">
-						<name>Y06.1</name>
-						<description>By parent</description>
-					</item>
-					<item type="subcategory">
-						<name>Y06.2</name>
-						<description>By acquaintance or friend</description>
-					</item>
-					<item type="subcategory">
-						<name>Y06.8</name>
-						<description>By other specified persons</description>
-					</item>
-					<item type="subcategory">
-						<name>Y06.9</name>
-						<description>By unspecified person</description>
-					</item>
-				</item>
-				<item type="category">
-					<name>Y07</name>
-					<description>Other maltreatment</description>
-					<item type="subcategory">
-						<name>Y07.0</name>
-						<description>By spouse or partner</description>
-					</item>
-					<item type="subcategory">
-						<name>Y07.1</name>
-						<description>By parent</description>
-					</item>
-					<item type="subcategory">
-						<name>Y07.2</name>
-						<description>By acquaintance or friend</description>
-					</item>
-					<item type="subcategory">
-						<name>Y07.3</name>
-						<description>By official authorities</description>
-					</item>
-					<item type="subcategory">
-						<name>Y07.8</name>
-						<description>By other specified persons</description>
-					</item>
-					<item type="subcategory">
-						<name>Y07.9</name>
-						<description>By unspecified person</description>
-					</item>
-				</item>
-				<item type="category">
-					<name>Y08</name>
-					<description>Assault by other specified means</description>
-				</item>
-				<item type="category">
-					<name>Y09</name>
-					<description>Assault by unspecified means</description>
-				</item>
+			</item>
+			<item type="category">
+				<name>Y08</name>
+				<description>Assault by other specified means</description>
+			</item>
+			<item type="category">
+				<name>Y09</name>
+				<description>Assault by unspecified means</description>
 			</item>
 		</item>
 		<item type="block">

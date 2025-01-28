@@ -57,6 +57,7 @@ class TestSimpleICD10(unittest.TestCase):
         self.assertEqual(icd.get_parent("G10-G14"),"VI")
         self.assertEqual(icd.get_parent("C00"),"C00-C14")
         self.assertEqual(icd.get_parent("H60.1"),"H60")
+        self.assertEqual(icd.get_parent("X85-Y09"),"XX")
 
     def test_get_children(self):
         self.assertEqual(icd.get_children("XII"),['L00-L08', 'L10-L14', 'L20-L30', 'L40-L45', 'L50-L54', 'L55-L59', 'L60-L75', 'L80-L99'])
@@ -84,6 +85,7 @@ class TestSimpleICD10(unittest.TestCase):
         self.assertFalse(icd.is_ancestor("H60.1","H60-H62"))
         self.assertTrue(icd.is_ancestor("H60-H62","H60.1"))
         self.assertFalse(icd.is_ancestor("E15-E16","E15-E16"))
+        self.assertFalse(icd.is_ancestor("X60-X84","X85-Y09"))
         
     def test_get_nearest_common_ancestor(self):
         self.assertEqual(icd.get_nearest_common_ancestor("J950","J998"),"J95-J99")
